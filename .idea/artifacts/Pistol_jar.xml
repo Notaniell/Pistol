@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pistol:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Pistol_jar</output-path>
+    <root id="archive" name="Pistol.jar">
+      <element id="module-output" name="Pistol" />
+    </root>
+  </artifact>
+</component>

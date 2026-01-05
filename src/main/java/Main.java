@@ -1,7 +1,12 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        readLoadBullet();
 
         while (true) {
             System.out.println("Шестизарядный револьвер");
@@ -29,12 +34,40 @@ public class Main {
                         System.out.println("Осталось патронов: " + Magazine.currentBullet);
                         break;
                     case 4:
+                        writeLoadBullet();
                         System.out.println("Ну чтож пока, пока");
                         return;
                     default:
                         System.out.println("Давай нормально, выбери от 1 до 4");
                 }
             }
+        }
+    }
+
+    public static void writeLoadBullet () {
+        try (FileWriter writer = new FileWriter("remainBullets.txt")) {
+            writer.write(Integer.toString(Magazine.currentBullet));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readLoadBullet() {
+        File file = new File("remainBullets.txt");
+
+        if (!file.exists()) {
+            System.out.println("Файл не найден");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file)) {
+            if (scanner.hasNextInt()) {
+                Magazine.currentBullet = scanner.nextInt();
+            } else {
+                System.out.println("Файл не содержит целых чисел");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Ошибка доступа к файлу");
         }
     }
 }
