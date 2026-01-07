@@ -1,11 +1,20 @@
+
 public class Pistol {
-    public static void shot() {
-        if (Magazine.currentBullet > 0) {
-            System.out.println("Бах!!!");
-            Magazine.currentBullet--;
-        } else {
+
+    private final Magazine magazine;
+
+    public Pistol(Magazine magazine) {
+        this.magazine = magazine;
+    }
+
+    public void shot() {
+
+        if (magazine.isEmpty()) {
             System.out.println("Клац...");
+            return;
         }
 
+        System.out.println("Бах!!!");
+        magazine.decreaseBullets();
     }
 }

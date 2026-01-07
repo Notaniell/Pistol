@@ -1,32 +1,37 @@
-import java.util.Scanner;
-
 public class Magazine {
-    static final int MAXBULLET = 6;
-    public static int currentBullet;
-    public static Scanner scanner = new Scanner(System.in);
 
-    static void loadMagazine() {
-        boolean loaded = false;
+    public Magazine(int maxBullets) {
+        this.maxBullets = maxBullets;
+    }
 
-        while(!loaded) {
-            System.out.println("Сколько патронов заряжаем? Сейчас в магазине " + currentBullet +".\n" +
-                    "Максимум 6. Можешь добавить " + (MAXBULLET-currentBullet));
-            if (!scanner.hasNextInt()) {
-                System.out.println("Ошибка: нужно ввести целое число!");
-                scanner.next();
-            } else {
-                int input = scanner.nextInt();
-                if (input < 0) {
-                    System.out.println("Патроны не могут быть отрицательными!");
-                } else if (input + currentBullet > MAXBULLET) {
-                    System.out.println("Слышь у нас шестизарядный револьвер, понимаешь 6 патронов максимум!");
-                } else {
-                    currentBullet = currentBullet + input;
-                    System.out.println("Вы зарядили патронов: " + input);
-                    loaded = true;
-                }
-            }
+    private final int maxBullets;
+    private int currentBullets;
+
+    public void loadMagazine(Integer bullets) {
+        if (bullets + currentBullets > maxBullets) {
+            System.out.println("Слышь у нас шестизарядный револьвер, понимаешь 6 патронов максимум!");
+            return;
         }
 
+        currentBullets += bullets;
+
+        System.out.println("Вы зарядили патронов: " + bullets);
+
+    }
+
+    public boolean isEmpty() {
+        return currentBullets == 0;
+    }
+
+    public void decreaseBullets() {
+        currentBullets--;
+    }
+
+    public int getCurrentBullets() {
+        return currentBullets;
+    }
+
+    public int getMaxBullets() {
+        return maxBullets;
     }
 }
